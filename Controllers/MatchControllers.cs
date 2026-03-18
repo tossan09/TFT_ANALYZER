@@ -5,7 +5,7 @@ using TFTDataTrackerApi.Repository;
 namespace TFTDataTrackerApi.Controllers
 {
     [ApiController]
-    [Route("/")]
+    [Route("matches")]
     public class MatchControllers : ControllerBase
     {
         private readonly MatchRepository _matchRepository;
@@ -33,7 +33,7 @@ namespace TFTDataTrackerApi.Controllers
         public async Task<IActionResult> Add([FromBody] Matches matches)
         {
             await _matchRepository.AddPartida(matches);
-            return Ok("Partida adicionada!");
+            return Ok(matches);
         }
 
         [HttpDelete("{id}")]

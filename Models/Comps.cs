@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TFTDataTrackerApi.Models
 {
@@ -11,5 +13,7 @@ namespace TFTDataTrackerApi.Models
         public string traits { get; set; } = string.Empty; // nova tabela traits?
         [Required]
         public string style { get; set; } = string.Empty; //trocar tipagem certa
+        [Required]
+        public int setid { get; set; }
     }
 }

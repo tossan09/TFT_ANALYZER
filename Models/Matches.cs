@@ -15,7 +15,6 @@ namespace TFTDataTrackerApi.Models
         public int hpstage32 { get; set; }
         public bool forced { get; set; }
         public bool contested { get; set; }
-        [Required]
         public string comment { get; set; } = string.Empty;
 
     }

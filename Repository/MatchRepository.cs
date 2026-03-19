@@ -33,14 +33,13 @@ namespace TFTDataTrackerApi.Repository
                     compname = reader.GetString(1),
                     patchnumber = reader.GetString(2),
                     placement = reader.GetInt32(3),
-                    finallevel = reader.GetInt32(4),
-                    goldstage32 = reader.GetInt32(5),
-                    goldstage41 = reader.GetInt32(6),
-                    hpstage32 = reader.GetInt32(7),
+                    finallevel = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
+                    goldstage32 = reader.IsDBNull(5) ? (int?)null : reader.GetInt32(5),
+                    goldstage41 = reader.IsDBNull(6) ? (int?)null : reader.GetInt32(6),
+                    hpstage32 = reader.IsDBNull(7) ? (int?)null : reader.GetInt32(7),
                     forced = reader.GetBoolean(8),
                     contested = reader.GetBoolean(9),
-                    comment = reader.GetString(10),
-
+                    comment = reader.IsDBNull(10) ? null : reader.GetString(10)
                 });
             }
             return partidas;
@@ -65,13 +64,13 @@ namespace TFTDataTrackerApi.Repository
                     comp_id = reader.GetInt32(1),
                     patch_id = reader.GetInt32(2),
                     placement = reader.GetInt32(3),
-                    finallevel = reader.GetInt32(4),
-                    goldstage32 = reader.GetInt32(5),
-                    goldstage41 = reader.GetInt32(6),
-                    hpstage32 = reader.GetInt32(7),
+                    finallevel = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
+                    goldstage32 = reader.IsDBNull(5) ? (int?)null : reader.GetInt32(5),
+                    goldstage41 = reader.IsDBNull(6) ? (int?)null : reader.GetInt32(6),
+                    hpstage32 = reader.IsDBNull(7) ? (int?)null : reader.GetInt32(7),
                     forced = reader.GetBoolean(8),
                     contested = reader.GetBoolean(9),
-                    comment = reader.GetString(10),
+                    comment = reader.IsDBNull(10) ? null : reader.GetString(10)
                 });
             }
             return partidas;
@@ -88,13 +87,15 @@ namespace TFTDataTrackerApi.Repository
             comando.Parameters.AddWithValue("@patch", matches.patch_id);
             comando.Parameters.AddWithValue("@comp", matches.comp_id);
             comando.Parameters.AddWithValue("@placement", matches.placement);
-            comando.Parameters.AddWithValue("@finallevel", matches.finallevel);
-            comando.Parameters.AddWithValue("@goldstage32", matches.goldstage32);
-            comando.Parameters.AddWithValue("@goldstage41", matches.goldstage41);
-            comando.Parameters.AddWithValue("@hpstage32", matches.hpstage32);
+
+            comando.Parameters.AddWithValue("@finallevel", matches.finallevel ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@goldstage32", matches.goldstage32 ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@goldstage41", matches.goldstage41 ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@hpstage32", matches.hpstage32 ?? (object)DBNull.Value);
+
             comando.Parameters.AddWithValue("@forced", matches.forced);
             comando.Parameters.AddWithValue("@contested", matches.contested);
-            comando.Parameters.AddWithValue("@comment", matches.comment);
+            comando.Parameters.AddWithValue("@comment", matches.comment ?? (object)DBNull.Value);
 
             await comando.ExecuteNonQueryAsync();
             return true;

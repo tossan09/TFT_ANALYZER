@@ -32,8 +32,19 @@ namespace TFTDataTrackerApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] Matches matches)
         {
-            await _matchRepository.AddPartida(matches);
-            return Ok(matches);
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                await _matchRepository.AddPartida(matches);
+                return Ok(matches);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { message = "Erro interno", detail = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]

@@ -9,10 +9,10 @@ namespace TFTDataTrackerApi.Models
         public int id {  get; set; }
         [Required] 
         public string name { get; set; } = string.Empty;
-        [Required]
-        public string traits { get; set; } = string.Empty; // nova tabela traits?
-        [Required]
-        public string style { get; set; } = string.Empty; //trocar tipagem certa
+        
+        public string? traits { get; set; } = string.Empty; // nova tabela traits?
+        
+        public string? style { get; set; } = string.Empty; //trocar tipagem certa
         [Required]
         public int setid { get; set; }
     }

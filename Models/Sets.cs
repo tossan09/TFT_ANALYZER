@@ -1,8 +1,13 @@
-﻿namespace TFTDataTrackerApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace TFTDataTrackerApi.Models
 {
     public class Sets
     {
         public int id { get; set; }
-        public int set_number { get; set; }
+        [Required]
+        public int SetNumber { get; set; }
+
     }
 }

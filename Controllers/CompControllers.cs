@@ -15,20 +15,12 @@ namespace TFTDataTrackerApi.Controllers
             _compRepository = compRepository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("set/{setNumber}")]
+        public async Task<IActionResult> GetCompsBySet(int setNumber)
         {
-            var comps = await _compRepository.ListarComps();
+            var comps = await _compRepository.ListarCompsPorSet(setNumber);
             return Ok(comps);
         }
-
-        [HttpGet("byPatch/{setid}")]
-        public async Task<IActionResult> GetCompsByPatch(int setid)
-        {
-            var comps = await _compRepository.ListarCompsPorPatch(setid);
-            return Ok(comps);
-        }
-
 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] Comps comps)
@@ -55,14 +47,6 @@ namespace TFTDataTrackerApi.Controllers
                 return NotFound("Comp nao encontrada");
             return Ok("Comp removida");
         }
-
-        [HttpGet("bySet/{setId}")]
-        public async Task<IActionResult> GetCompsBySet(int setId)
-        {
-            var comps = await _compRepository.ListarCompsPorPatch(setId);
-            return Ok(comps);
-        }
-
 
     }
 }

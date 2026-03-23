@@ -18,7 +18,7 @@ public class SetRepository
 
         var query = "INSERT INTO sets (set_number) VALUES (@setNumber)";
         using var comando = new NpgsqlCommand(query, conexao);
-        comando.Parameters.AddWithValue("@setNumber", sets.set_number);
+        comando.Parameters.AddWithValue("@setNumber", sets.SetNumber);
 
         var result = await comando.ExecuteNonQueryAsync();
         return result > 0;
@@ -39,7 +39,7 @@ public class SetRepository
             sets.Add(new Sets
             {
                 id = reader.GetInt32(0),
-                set_number = reader.GetInt32(1)
+                SetNumber = reader.GetInt32(1)
             });
         }
         return sets;

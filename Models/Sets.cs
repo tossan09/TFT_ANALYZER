@@ -5,7 +5,7 @@ namespace TFTDataTrackerApi.Models
 {
     public class Sets
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         [Required]
         public int SetNumber { get; set; }
 

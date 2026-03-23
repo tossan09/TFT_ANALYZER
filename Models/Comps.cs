@@ -6,14 +6,14 @@ namespace TFTDataTrackerApi.Models
 {
     public class Comps
     {
-        public int id {  get; set; }
+        public int Id {  get; set; }
         [Required] 
-        public string name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         
-        public string? traits { get; set; } = string.Empty; // nova tabela traits?
+        public string? Traits { get; set; } = string.Empty; // nova tabela traits?
         
-        public string? style { get; set; } = string.Empty; //trocar tipagem certa
+        public string? Style { get; set; } = string.Empty; //trocar tipagem certa
         [Required]
-        public int setid { get; set; }
+        public int SetId { get; set; }
     }
 }

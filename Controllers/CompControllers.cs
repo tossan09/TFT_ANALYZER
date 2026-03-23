@@ -6,14 +6,9 @@ namespace TFTDataTrackerApi.Controllers
 {
     [ApiController]
     [Route("/comps")]
-    public class CompControllers : ControllerBase
+    public class CompControllers(CompRepository compRepository) : ControllerBase
     {
-        private readonly CompRepository _compRepository;
-
-        public CompControllers(CompRepository compRepository)
-        {
-            _compRepository = compRepository;
-        }
+        private readonly CompRepository _compRepository = compRepository;
 
         [HttpGet("set/{setNumber}")]
         public async Task<IActionResult> GetCompsBySet(int setNumber)

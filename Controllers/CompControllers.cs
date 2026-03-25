@@ -15,7 +15,7 @@ namespace TFTDataTrackerApi.Controllers
             _compRepository = compRepository;
         }
 
-        // tabela comps
+        // tabela comps 
         [HttpGet("set/{setNumber}")]
         public async Task<IActionResult> GetCompsBySet(int setNumber)
         {

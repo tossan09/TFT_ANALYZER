@@ -53,7 +53,8 @@ namespace TFTDataTrackerApi.Repository
                     Name = reader.GetString(1),
                     Traits = reader.IsDBNull(2) ? null : reader.GetString(2),
                     Style = reader.IsDBNull(3) ? null : reader.GetString(3),
-                    SetNumber = reader.GetInt32(4)
+                    SetNumber = reader.GetInt32(4), //visual
+                    SetId = reader.GetInt32(5)
                 });
             }
             return comps;

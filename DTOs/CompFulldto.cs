@@ -11,5 +11,6 @@ namespace TFTDataTrackerApi.DTOs
         public string? Style { get; set; }
         [Required]
         public int SetNumber { get; set; }
+        public int SetId { get; set; }
     }
 }

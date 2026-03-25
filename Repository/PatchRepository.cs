@@ -50,6 +50,28 @@ namespace TFTDataTrackerApi.Repository
             return patches;
         }
 
+        public async Task<List<Patches>> ListarPatchesPorSet(int setId)
+        {
+            var patches = new List<Patches>();
+            using var conexao = _context.CriarConexao();
+            await conexao.OpenAsync();
+
+            using var comando = new NpgsqlCommand("SELECT id, patch_number, set_id FROM patches WHERE set_id = @setId ORDER BY id DESC", conexao);
+            comando.Parameters.AddWithValue("@setId", setId);
+
+            using var reader = await comando.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                patches.Add(new Patches
+                {
+                    id = reader.GetInt32(0),
+                    patch_number = reader.GetString(1),
+                    Set_id = reader.GetInt32(2)
+                });
+            }
+            return patches;
+        }
+
     }
 
 }

@@ -24,6 +24,13 @@ namespace TFTDataTrackerApi.Controllers
             return Ok(patches);
         }
 
+        [HttpGet("set/{setId}")]
+        public async Task<IActionResult> GetPatchesBySet(int setId)
+        {
+            var patches = await repository.ListarPatchesPorSet(setId);
+            return Ok(patches);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Patches patches)
         {

@@ -21,11 +21,18 @@ namespace TFTDataTrackerApi.Controllers
             return Ok(stats);
         }
 
-        [HttpGet("comp/{compId}")]
-        public async Task<IActionResult> GetStatsPorComp(string compId, [FromQuery] string? patchId)
+        [HttpGet("comp/{compName}/patch/{patchNumber}")]
+        public async Task<IActionResult> GetStatsPorComp(string compName, string patchNumber)
         {
-            var stats = await _statsRepository.GetStatsPorComp(compId, patchId);
+            var stats = await _statsRepository.GetStatsPorComp(compName , patchNumber);
+
+            if (stats == null || !stats.Any())
+            {
+                return NotFound(new { message = $"Nenhuma estatística encontrada para a comp '{compName}'." });
+            }
+
             return Ok(stats);
         }
+
     }
 }

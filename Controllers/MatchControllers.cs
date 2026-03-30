@@ -6,13 +6,9 @@ namespace TFTDataTrackerApi.Controllers
 {
     [ApiController]
     [Route("matches")]
-    public class MatchControllers : ControllerBase
+    public class MatchControllers(MatchRepository matchRepository) : ControllerBase
     {
-        private readonly MatchRepository _matchRepository;
-        public MatchControllers(MatchRepository matchRepository)
-        {
-            this._matchRepository = matchRepository;
-        }
+        private readonly MatchRepository _matchRepository = matchRepository;
 
         [HttpGet("patch/{patchnumber}")]
         public async Task<IActionResult> GetByPatch(string patchnumber)
@@ -36,10 +32,10 @@ namespace TFTDataTrackerApi.Controllers
 
         }
         //componente recent placement
-        [HttpGet("placement")]
-        public async Task<IActionResult> GetPlacement()
+        [HttpGet("placement/{patchnumber}")]
+        public async Task<IActionResult> GetPlacement(string patchnumber)
         {
-            var placement = await _matchRepository.ListarPlacementRecent();
+            var placement = await _matchRepository.ListarPlacementRecent(patchnumber);
             if (placement == null || placement.Count == 0)
                 return Ok(new List<int>());
             return Ok(placement);

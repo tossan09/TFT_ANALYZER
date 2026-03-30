@@ -6,14 +6,9 @@ using TFTDataTrackerApi.Models;
 
 namespace TFTDataTrackerApi.Repository
 {
-    public class MatchRepository
+    public class MatchRepository(DbContext context)
     {
-        private readonly DbContext context;
-
-        public MatchRepository(DbContext context)
-        {
-            this.context = context;
-        }
+        private readonly DbContext context = context;
 
         public async Task<List<MatchFulldto>> ListarPartidasPorPatch(string patchnumber)
         {
@@ -106,21 +101,26 @@ namespace TFTDataTrackerApi.Repository
         }
 
         //componente recent placement
-        public async Task<List<int>> ListarPlacementRecent()
+        public async Task<List<MatchFulldto>> ListarPlacementRecent(string patchnumber)
         {
-            var placements = new List<int>();
+            var placements = new List<MatchFulldto>();
             using var conexao = context.CriarConexao();
             await conexao.OpenAsync();
 
             var query = new NpgsqlCommand(
-                "SELECT placement FROM matches ORDER BY id DESC LIMIT 20;", conexao);
+                "SELECT patch_number, placement FROM vw_matches_full WHERE patch_number = @patchnumber ORDER BY id DESC LIMIT 20;", conexao);
+            query.Parameters.AddWithValue("@patchnumber", patchnumber);
 
             using var reader = await query.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                placements.Add(reader.GetInt32(0));
+                placements.Add(new MatchFulldto
+                {
+                    patchnumber = reader.GetString(0),
+                    placement = reader.GetInt32(1)
+                    
+                });
             }
-
             return placements;
         }
 
